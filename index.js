@@ -1,7 +1,6 @@
 /* eslint-env node */
 'use strict';
 const BasePlugin = require('ember-cli-deploy-plugin');
-const request = require('request');
 const rp = require('request-promise');
 const git = require('git-rev-sync');
 
@@ -13,6 +12,7 @@ module.exports = {
       requiredConfig: ['key', 'appID'],
 
       didDeploy(context) {
+        // eslint-disable-next-line no-console
         console.log('Deploying for Newrelic')
         return rp({
           method: 'POST',
@@ -26,7 +26,7 @@ module.exports = {
               revision: `${context.project.pkg.version}+${git.long(context.project.root).substring(0, 8)}`,
             }
           }
-        }).then((res) => {
+        }).then(() => {
           this.log('Successfully sent deployment');
         }, (err) => {
           this.log('Error setting deployment' + err.message, {color: 'red'});
