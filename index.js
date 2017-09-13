@@ -1,19 +1,19 @@
 /* eslint-env node */
 'use strict';
-var BasePlugin = require('ember-cli-deploy-plugin');
-var request = require('request');
-var rp = require('request-promise');
-var git = require('git-rev-sync');
+const BasePlugin = require('ember-cli-deploy-plugin');
+const request = require('request');
+const rp = require('request-promise');
+const git = require('git-rev-sync');
 
 module.exports = {
   name: 'ember-cli-deploy-newrelic',
-  createDeployPlugin: function(options) {
-    var DeployPlugin = BasePlugin.extend({
+  createDeployPlugin(options) {
+    let DeployPlugin = BasePlugin.extend({
       name: options.name,
       requiredConfig: ['key', 'appID'],
 
-      didDeploy: function(context) {
-        console.log("Deploying for Newrelic")
+      didDeploy(context) {
+        console.log('Deploying for Newrelic')
         return rp({
           method: 'POST',
           url: `https://api.newrelic.com/v2/applications/${this.readConfig('appID')}/deployments.json`,
