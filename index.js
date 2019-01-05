@@ -1,11 +1,10 @@
-/* eslint-env node */
 'use strict';
 const BasePlugin = require('ember-cli-deploy-plugin');
 const rp = require('request-promise');
 const git = require('git-rev-sync');
 
 module.exports = {
-  name: 'ember-cli-deploy-newrelic',
+  name: require('./package').name,
   createDeployPlugin(options) {
     let DeployPlugin = BasePlugin.extend({
       name: options.name,
